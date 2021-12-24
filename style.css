@@ -35,6 +35,11 @@ header, footer {
     background-color: white;
     height: 100px;
     width: 300px;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: right;
 }
 
 .buttons {
