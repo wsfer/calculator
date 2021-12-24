@@ -1,0 +1,45 @@
+* {
+    background-color: gray;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color:brown;
+}
+
+.pageMiddle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+}
+
+.calculator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: black;
+    width: 300px;
+    height: 400px;
+}
+
+.display {
+    background-color: white;
+    height: 100px;
+    width: 280px;
+}
+
+.buttons {
+    background-color: gray;
+    height: 280px;
+    width: 280px;
+}
