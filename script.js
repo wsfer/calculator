@@ -1,18 +1,6 @@
-function add (n1, n2) {
-    return n1 + n2;
-}
-
-function subtract (n1, n2) {
-    return n1 - n2;
-}
-
-function multiply (n1, n2) {
-    return n1 * n2;
-}
-
-function divide (n1, n2) {
-    return n1 / n2;
-}
+let firstNumber = '';
+let secondNumber = '';
+let operator = '';
 
 function operate (a, b, operate) {
     switch (operate) {
@@ -30,3 +18,18 @@ function operate (a, b, operate) {
             break;
     }
 }
+
+function updateTextDisplay () {
+    document.querySelector('.display').textContent = firstNumber + operator + secondNumber;
+}
+
+function updateNumber (button) {
+    firstNumber = button.textContent;
+    updateTextDisplay();
+}
+
+const numberButtons = document.querySelectorAll('.numbers > button');
+for (let i of numberButtons) {
+    i.addEventListener('click', function (e) {updateNumber(e.target);});
+}
+
