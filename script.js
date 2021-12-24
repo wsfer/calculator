@@ -12,6 +12,9 @@ for (let i of numberButtons) {
     i.addEventListener('click', function (e) {updateNumber(e.target);});
 }
 
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', clearAll);
+
 function operate (operateButton) {
 
     if (secondNumber !== '') {
@@ -56,3 +59,9 @@ function updateNumber (numberButton) {
     updateTextDisplay();
 }
 
+function clearAll () {
+    firstNumber = '';
+    secondNumber = '';
+    operator = '';
+    updateTextDisplay();
+}
