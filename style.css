@@ -28,18 +28,42 @@ header, footer {
     justify-content: center;
     flex-direction: column;
     background-color: black;
-    width: 300px;
-    height: 400px;
+    padding: 16px;
 }
 
 .display {
     background-color: white;
     height: 100px;
-    width: 280px;
+    width: 300px;
 }
 
 .buttons {
+    display: flex;
     background-color: gray;
-    height: 280px;
-    width: 280px;
+    height: 375px;
+    width: 300px;
+}
+
+.numbers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 225px;
+    height: 300px;
+}
+
+.operators {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 75px;
+    height: 300px;
+}
+
+.calculator button {
+    background-color: white;
+    width: 75px;
+    height: 75px;
 }
