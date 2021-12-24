@@ -2,34 +2,57 @@ let firstNumber = '';
 let secondNumber = '';
 let operator = '';
 
-function operate (a, b, operate) {
-    switch (operate) {
-        case '+':
-            return add (a, b);
-            break;
-        case '-':
-            return subtract (a, b);
-            break;
-        case '*':
-            return multiply (a, b);
-            break;
-        case '/':
-            return divide (a, b);
-            break;
+const operateButtons = document.querySelectorAll('.operator');
+for (let i of operateButtons) {
+    i.addEventListener('click', function (e) {operate(e.target);});
+} 
+
+const numberButtons = document.querySelectorAll('.numbers > button');
+for (let i of numberButtons) {
+    i.addEventListener('click', function (e) {updateNumber(e.target);});
+}
+
+function operate (operateButton) {
+
+    if (secondNumber !== '') {
+        switch (operator) {
+            case '+':
+                firstNumber = Number(firstNumber) + Number(secondNumber);
+                secondNumber = '';
+                updateTextDisplay();
+                break;
+            case '-':
+                firstNumber = Number(firstNumber) - Number(secondNumber);
+                secondNumber = '';
+                operator = '';
+                updateTextDisplay();
+                break;
+            case '*':
+                firstNumber = Number(firstNumber) * Number(secondNumber);
+                secondNumber = '';
+                operator = '';
+                updateTextDisplay();
+            case '/':
+                firstNumber = Number(firstNumber) * Number(secondNumber);
+                secondNumber = '';
+                operator = '';
+                break;
+        }
     }
+    operator = operateButton.textContent;
+    updateTextDisplay();
 }
 
 function updateTextDisplay () {
     document.querySelector('.display').textContent = firstNumber + operator + secondNumber;
 }
 
-function updateNumber (button) {
-    firstNumber = button.textContent;
+function updateNumber (numberButton) {
+    if (operator === '') {
+        firstNumber += numberButton.textContent;
+    } else {
+        secondNumber += numberButton.textContent;
+    }
     updateTextDisplay();
-}
-
-const numberButtons = document.querySelectorAll('.numbers > button');
-for (let i of numberButtons) {
-    i.addEventListener('click', function (e) {updateNumber(e.target);});
 }
 
