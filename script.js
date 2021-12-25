@@ -22,21 +22,19 @@ function operate (operateButton) {
             case '+':
                 firstNumber = Number(firstNumber) + Number(secondNumber);
                 secondNumber = '';
-                updateTextDisplay();
                 break;
             case '-':
                 firstNumber = Number(firstNumber) - Number(secondNumber);
                 secondNumber = '';
                 operator = '';
-                updateTextDisplay();
                 break;
             case '*':
                 firstNumber = Number(firstNumber) * Number(secondNumber);
                 secondNumber = '';
                 operator = '';
-                updateTextDisplay();
+                break;
             case '/':
-                firstNumber = Number(firstNumber) * Number(secondNumber);
+                firstNumber = Number(firstNumber) / Number(secondNumber);
                 secondNumber = '';
                 operator = '';
                 break;
@@ -47,7 +45,7 @@ function operate (operateButton) {
 }
 
 function updateTextDisplay () {
-    document.querySelector('.display').textContent = firstNumber + operator + secondNumber;
+    document.querySelector('.display').textContent = `${firstNumber} ${operator} ${secondNumber}`;
 }
 
 function updateNumber (numberButton) {
