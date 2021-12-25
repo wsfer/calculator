@@ -20,6 +20,14 @@ equalButton.addEventListener('click', endOperation);
 
 function operate (operateButton) {
 
+    if (secondNumber === '0') {
+        firstNumber = 'Error';
+        secondNumber = '';
+        operator = '';
+        updateTextDisplay();
+        return;
+    }
+
     if (secondNumber !== '') {
         switch (operator) {
             case '+':
@@ -65,6 +73,15 @@ function clearAll () {
 }
 
 function endOperation () {
+
+    if (secondNumber === '0') {
+        firstNumber = 'Error';
+        secondNumber = '';
+        operator = '';
+        updateTextDisplay();
+        return;
+    }
+
     switch (operator) {
         case '+':
             firstNumber = Number(firstNumber) + Number(secondNumber);
