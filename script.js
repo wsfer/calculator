@@ -40,23 +40,20 @@ function operate (operateButton) {
         switch (operator) {
             case '+':
                 firstNumber = Number(firstNumber) + Number(secondNumber);
-                secondNumber = '';
                 break;
             case '-':
                 firstNumber = Number(firstNumber) - Number(secondNumber);
-                secondNumber = '';
                 break;
             case '*':
                 firstNumber = Number(firstNumber) * Number(secondNumber);
-                secondNumber = '';
                 break;
             case '/':
                 firstNumber = Number(firstNumber) / Number(secondNumber);
-                secondNumber = '';
                 break;
         }
         roundNumber();
     }
+    secondNumber = '';
     operator = operateButton.textContent;
     updateTextDisplay();
     disableOperates();
@@ -106,25 +103,19 @@ function endOperation () {
     switch (operator) {
         case '+':
             firstNumber = Number(firstNumber) + Number(secondNumber);
-            secondNumber = '';
-            operator = '';
             break;
         case '-':
             firstNumber = Number(firstNumber) - Number(secondNumber);
-            secondNumber = '';
-            operator = '';
             break;
         case '*':
             firstNumber = Number(firstNumber) * Number(secondNumber);
-            secondNumber = '';
-            operator = '';
             break;
         case '/':
             firstNumber = Number(firstNumber) / Number(secondNumber);
-            secondNumber = '';
-            operator = '';
             break;
     }
+    secondNumber = '';
+    operator = '';
     roundNumber();
     enableOperates();
     updateTextDisplay();
