@@ -72,6 +72,10 @@ button {
     border: 1px solid black;
 }
 
+button:hover {
+    border: 1px solid gold;
+}
+
 #zero, #back {
     width: 200px;
     height: 100px;

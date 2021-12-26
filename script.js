@@ -20,7 +20,7 @@ for (let i of numberButtons) {
     i.addEventListener('click', function (e) {updateNumber(e.target);});
 }
 
-disableOperates();
+enableOperates(false);
 equalButton.disabled = true;
 dotButton.disabled = true;
 
@@ -56,8 +56,8 @@ function operate (operateButton) {
     secondNumber = '';
     operator = operateButton.textContent;
     updateTextDisplay();
-    enableNumbers();
-    disableOperates();
+    enableNumbers(true);
+    enableOperates(false);
     notInteger = false;
     dotButton.disabled = true;
 }
@@ -84,7 +84,7 @@ function updateNumber (numberButton) {
 
     dotButton.disabled = notInteger;
 
-    enableOperates()
+    enableOperates(true)
     updateTextDisplay();
 }
 
@@ -92,8 +92,8 @@ function clearAll () {
     firstNumber = '';
     secondNumber = '';
     operator = '';
-    disableOperates();
-    enableNumbers();
+    enableOperates(false);
+    enableNumbers(true);
     equalButton.disabled = true;
     dotButton.disabled = true;
     notInteger = false;
@@ -119,8 +119,8 @@ function endOperation () {
     secondNumber = '';
     operator = '';
     roundNumber();
-    enableOperates();
-    disableNumbers();
+    enableOperates(true);
+    enableNumbers(false);
     updateTextDisplay();
     notInteger = false;
     dotButton.disabled = true;
@@ -130,29 +130,30 @@ function roundNumber () {
     firstNumber = +firstNumber.toFixed(5);
 }
 
-function disableOperates () {
-    for (let i of operateButtons) {
-        i.disabled = true;
+function enableOperates (boolean) {
+    if (boolean) {
+        for (let i of operateButtons) {
+            i.disabled = false;
+        }
+        if (secondNumber === '') {
+            equalButton.disabled = true;
+        } else {equalButton.disabled = false;}
+    } else {
+        for (let i of operateButtons) {
+            i.disabled = true;
+        }
     }
-} 
-
-function enableOperates () {
-    for (let i of operateButtons) {
-        i.disabled = false;
-    }
-    if (secondNumber === '') {
-        equalButton.disabled = true;
-    } else {equalButton.disabled = false;}
+    
 }
 
-function disableNumbers () {
-    for (let i of numberButtons) {
-        i.disabled = true;
-    }
-}
-
-function enableNumbers () {
-    for (let i of numberButtons) {
-        i.disabled = false;
+function enableNumbers (boolean) {
+    if (boolean) {
+        for (let i of numberButtons) {
+            i.disabled = false;
+        }
+    } else {
+        for (let i of numberButtons) {
+            i.disabled = true;
+        }
     }
 }
