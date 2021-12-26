@@ -92,7 +92,8 @@ function clearAll () {
     firstNumber = '';
     secondNumber = '';
     operator = '';
-    disableOperates()
+    disableOperates();
+    enableNumbers();
     equalButton.disabled = true;
     dotButton.disabled = true;
     notInteger = false;
