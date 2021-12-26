@@ -27,47 +27,68 @@ header, footer {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: black;
+    background-color: gray;
+    border: 2px solid black;
     padding: 16px;
+    border-radius: 16px;
 }
 
 .display {
     background-color: white;
     height: 100px;
-    width: 300px;
+    width: 400px;
     font-size: 40px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: right;
+    margin-bottom: 16px;
+    border-radius: 16px;
 }
 
 .buttons {
     display: flex;
     background-color: gray;
+}
+
+.numbersBox {
+    display: flex;
+    flex-wrap: wrap;
     width: 300px;
 }
 
-.numbers {
+.operatorsBox {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
-    width: 225px;
+    width: 100px;
 }
 
-.operators {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 75px;
-}
-
-.calculator button {
-    background-color: white;
-    width: 75px;
-    height: 75px;
+button {
+    border-radius: 16px;
+    width: 100px;
+    height: 100px;
     font-size: 30px;
     font-weight: bold;
+    border: 1px solid black;
+}
+
+#zero, #back {
+    width: 200px;
+    height: 100px;
+}
+
+#equal {
+    background-color: orange;
+}
+
+#clear, #back {
+    background-color: red;
+}
+
+.dot {
+    background-color: skyblue;
+}
+
+.operator {
+    background-color: orangered;
 }
