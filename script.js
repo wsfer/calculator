@@ -1,22 +1,28 @@
 let firstNumber = '';
 let secondNumber = '';
 let operator = '';
+let notInteger = false;
 
+const dotButton = document.querySelector('.dot');
 const numberButtons = document.querySelectorAll('.number');
 const clearButton = document.querySelector('#clear');
 const equalButton = document.querySelector('#equal');
 const operateButtons = document.querySelectorAll('.operator');
+
+equalButton.addEventListener('click', endOperation);
+clearButton.addEventListener('click', clearAll);
+dotButton.addEventListener('click', function (e) {updateNumber(e.target);});
+
 for (let i of operateButtons) {
     i.addEventListener('click', function (e) {operate(e.target);});
 }
-
-clearButton.addEventListener('click', clearAll);
 for (let i of numberButtons) {
     i.addEventListener('click', function (e) {updateNumber(e.target);});
 }
-equalButton.addEventListener('click', endOperation);
+
 disableOperates();
 equalButton.disabled = true;
+dotButton.disabled = true;
 
 function operate (operateButton) {
 
@@ -54,6 +60,8 @@ function operate (operateButton) {
     operator = operateButton.textContent;
     updateTextDisplay();
     disableOperates();
+    notInteger = false;
+    dotButton.disabled = true;
 }
 
 function updateTextDisplay () {
@@ -61,6 +69,11 @@ function updateTextDisplay () {
 }
 
 function updateNumber (numberButton) {
+
+    if (numberButton.textContent === '.') {
+        notInteger = true;
+    }
+
     if (operator === '') {
         firstNumber += numberButton.textContent;
     } else {
@@ -70,6 +83,9 @@ function updateNumber (numberButton) {
     if (secondNumber !== '') {
         equalButton.disable = true;
     }
+
+    dotButton.disabled = notInteger;
+
     enableOperates()
     updateTextDisplay();
 }
@@ -80,6 +96,8 @@ function clearAll () {
     operator = '';
     disableOperates()
     equalButton.disabled = true;
+    dotButton.disabled = true;
+    notInteger = false;
     updateTextDisplay();
 }
 
@@ -110,6 +128,8 @@ function endOperation () {
     roundNumber();
     enableOperates();
     updateTextDisplay();
+    notInteger = false;
+    dotButton.disabled = true;
 }
 
 function roundNumber () {
