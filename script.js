@@ -2,21 +2,25 @@ let firstNumber = '';
 let secondNumber = '';
 let operator = '';
 
-const operateButtons = document.querySelectorAll('.operator');
-
 const numberButtons = document.querySelectorAll('.number');
+const clearButton = document.querySelector('#clear');
+const equalButton = document.querySelector('#equal');
+const operateButtons = document.querySelectorAll('.operator');
+for (let i of operateButtons) {
+    i.addEventListener('click', function (e) {operate(e.target);});
+}
+
+clearButton.addEventListener('click', clearAll);
 for (let i of numberButtons) {
     i.addEventListener('click', function (e) {updateNumber(e.target);});
 }
-
-const clearButton = document.querySelector('#clear');
-clearButton.addEventListener('click', clearAll);
-
-const equalButton = document.querySelector('#equal');
+equalButton.addEventListener('click', endOperation);
+disableOperates();
+equalButton.disabled = true;
 
 function operate (operateButton) {
 
-    equalButton.removeEventListener('click', endOperation);
+    equalButton.disabled = true;
 
     if (secondNumber === '0') {
         firstNumber = 'Error';
@@ -49,6 +53,7 @@ function operate (operateButton) {
     }
     operator = operateButton.textContent;
     updateTextDisplay();
+    disableOperates();
 }
 
 function updateTextDisplay () {
@@ -63,31 +68,21 @@ function updateNumber (numberButton) {
     }
 
     if (secondNumber !== '') {
-        equalButton.addEventListener('click', endOperation);
+        equalButton.disable = true;
     }
-
+    enableOperates()
     updateTextDisplay();
-    for (let i of operateButtons) {
-        i.addEventListener('click', function (e) {operate(e.target);});
-    }
 }
 
 function clearAll () {
     firstNumber = '';
     secondNumber = '';
     operator = '';
+    disableOperates()
     updateTextDisplay();
 }
 
 function endOperation () {
-
-    if (secondNumber === '0') {
-        firstNumber = 'Error';
-        secondNumber = '';
-        operator = '';
-        updateTextDisplay();
-        return;
-    }
 
     switch (operator) {
         case '+':
@@ -112,9 +107,25 @@ function endOperation () {
             break;
     }
     roundNumber();
+    enableOperates();
     updateTextDisplay();
 }
 
 function roundNumber () {
     firstNumber = +firstNumber.toFixed(5);
+}
+
+function disableOperates () {
+    for (let i of operateButtons) {
+        i.disabled = true;
+    }
+} 
+
+function enableOperates () {
+    for (let i of operateButtons) {
+        i.disabled = false;
+    }
+    if (secondNumber === '') {
+        equalButton.disabled = true;
+    } else {equalButton.disabled = false;}
 }
