@@ -56,6 +56,7 @@ function operate (operateButton) {
     secondNumber = '';
     operator = operateButton.textContent;
     updateTextDisplay();
+    enableNumbers();
     disableOperates();
     notInteger = false;
     dotButton.disabled = true;
@@ -118,6 +119,7 @@ function endOperation () {
     operator = '';
     roundNumber();
     enableOperates();
+    disableNumbers();
     updateTextDisplay();
     notInteger = false;
     dotButton.disabled = true;
@@ -140,4 +142,16 @@ function enableOperates () {
     if (secondNumber === '') {
         equalButton.disabled = true;
     } else {equalButton.disabled = false;}
+}
+
+function disableNumbers () {
+    for (let i of numberButtons) {
+        i.disabled = true;
+    }
+}
+
+function enableNumbers () {
+    for (let i of numberButtons) {
+        i.disabled = false;
+    }
 }
