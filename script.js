@@ -3,9 +3,6 @@ let secondNumber = '';
 let operator = '';
 
 const operateButtons = document.querySelectorAll('.operator');
-for (let i of operateButtons) {
-    i.addEventListener('click', function (e) {operate(e.target);});
-} 
 
 const numberButtons = document.querySelectorAll('.number');
 for (let i of numberButtons) {
@@ -16,9 +13,10 @@ const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', clearAll);
 
 const equalButton = document.querySelector('#equal');
-equalButton.addEventListener('click', endOperation);
 
 function operate (operateButton) {
+
+    equalButton.removeEventListener('click', endOperation);
 
     if (secondNumber === '0') {
         firstNumber = 'Error';
@@ -63,7 +61,15 @@ function updateNumber (numberButton) {
     } else {
         secondNumber += numberButton.textContent;
     }
+
+    if (secondNumber !== '') {
+        equalButton.addEventListener('click', endOperation);
+    }
+
     updateTextDisplay();
+    for (let i of operateButtons) {
+        i.addEventListener('click', function (e) {operate(e.target);});
+    }
 }
 
 function clearAll () {
