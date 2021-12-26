@@ -79,6 +79,7 @@ function clearAll () {
     secondNumber = '';
     operator = '';
     disableOperates()
+    equalButton.disabled = true;
     updateTextDisplay();
 }
 
