@@ -47,7 +47,7 @@ function operate (operateButton) {
                 secondNumber = '';
                 break;
         }
-        roundIfBigger(firstNumber);
+        roundNumber();
     }
     operator = operateButton.textContent;
     updateTextDisplay();
@@ -105,10 +105,10 @@ function endOperation () {
             operator = '';
             break;
     }
-    roundNumber(firstNumber);
+    roundNumber();
     updateTextDisplay();
 }
 
-function roundNumber (number) {
-    firstNumber = +firstNumber.toFixed(7);
+function roundNumber () {
+    firstNumber = +firstNumber.toFixed(5);
 }
