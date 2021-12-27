@@ -176,5 +176,84 @@ function operate () {
             firstNumber = Number(firstNumber) / Number(secondNumber);
             break;
     }
-    firstNumber = +firstNumber.toFixed(5);
+    firstNumber = +firstNumber.toFixed(7);
+}
+
+//keyboard support.
+document.addEventListener('keyup', (e) => pressKey(e.key));
+
+function pressKey (keyPressed) {
+    switch (keyPressed) {
+        case 'Backspace':
+            backSpace();
+            break;
+        case 'Escape':
+            clearAll();
+            break;
+        case '1': case '2': case '3':
+        case '4': case '5': case '6':
+        case '7': case '8': case '9':
+        case '0': case '.':
+            updateNumberForKeyboard(keyPressed);
+            break;
+        case '+': case '/': case '*': case '-':
+            updateOperationForKeyboard(keyPressed);
+            break;
+        case '=':
+            endOperation();
+            break;
+    }
+}
+
+function updateNumberForKeyboard (keyNumber) {
+
+    lastNumber.push(keyNumber);
+    let disableEqual = true;
+
+    if (keyNumber === '.') {
+        notInteger = true;
+    }
+
+    if (operator === '') {
+        firstNumber += keyNumber;
+        minusButton.removeEventListener('click', startNegative);
+        for (let i of operateButtons) {
+            i.addEventListener('click', (e) => updateOperation(e.target));
+        }
+    } else {
+        secondNumber += keyNumber;
+    }
+
+    if (secondNumber !== '') {
+        disableEqual = false;
+    }
+
+    updateTextDisplay();
+    disableButtons(notInteger, disableEqual, false, false, false);
+}
+
+function updateOperationForKeyboard (operateKey) {
+
+    disableButtons(true, true, true, false, true);
+
+    if (secondNumber === '0') {
+        firstNumber = 'Error';
+        secondNumber = '';
+        operator = '';
+        lastNumber = [];
+        disableButtons(true, true, true, true, true);
+        updateTextDisplay();
+        return;
+    }
+
+    if (secondNumber !== '') {
+        operate();
+    }
+
+    secondNumber = '';
+    operator = operateKey;
+    lastNumber = [];
+    notInteger = false;
+    disableButtons(true, true, true, false, true);
+    updateTextDisplay();
 }
