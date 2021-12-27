@@ -33,7 +33,7 @@ function startNegative () {
     updateTextDisplay();
 }
 
-function operate (operateButton) {
+function updateOperation (operateButton) {
 
     disableButtons(true, true, true, false, true);
 
@@ -48,22 +48,10 @@ function operate (operateButton) {
     }
 
     if (secondNumber !== '') {
-        switch (operator) {
-            case '+':
-                firstNumber = Number(firstNumber) + Number(secondNumber);
-                break;
-            case '-':
-                firstNumber = Number(firstNumber) - Number(secondNumber);
-                break;
-            case '*':
-                firstNumber = Number(firstNumber) * Number(secondNumber);
-                break;
-            case '/':
-                firstNumber = Number(firstNumber) / Number(secondNumber);
-                break;
-        }
+        operate();
         roundNumber();
     }
+
     secondNumber = '';
     operator = operateButton.textContent;
     updateTextDisplay();
@@ -89,7 +77,7 @@ function updateNumber (numberButton) {
         firstNumber += numberButton.textContent;
         minusButton.removeEventListener('click', startNegative);
         for (let i of operateButtons) {
-            i.addEventListener('click', (e) => operate(e.target));
+            i.addEventListener('click', (e) => updateOperation(e.target));
         }
     } else {
         secondNumber += numberButton.textContent;
@@ -127,20 +115,8 @@ function endOperation () {
         return;
     }
 
-    switch (operator) {
-        case '+':
-            firstNumber = Number(firstNumber) + Number(secondNumber);
-            break;
-        case '-':
-            firstNumber = Number(firstNumber) - Number(secondNumber);
-            break;
-        case '*':
-            firstNumber = Number(firstNumber) * Number(secondNumber);
-            break;
-        case '/':
-            firstNumber = Number(firstNumber) / Number(secondNumber);
-            break;
-    }
+    operate();
+
     secondNumber = '';
     operator = '';
     lastNumber = [];
@@ -158,6 +134,7 @@ function backSpace () {
 
     if (lastNumber[lastNumber.length-1] === '.') {
         dotButton.disabled = false;
+        notInteger = false;
     }
 
     if (secondNumber === '') {
@@ -189,5 +166,22 @@ function disableButtons (boolDot, boolEqual, boolBack, boolNumbers, boolOperates
     }
     for (let i of operateButtons) {
         i.disabled = boolOperates;
+    }
+}
+
+function operate () {
+    switch (operator) {
+        case '+':
+            firstNumber = Number(firstNumber) + Number(secondNumber);
+            break;
+        case '-':
+            firstNumber = Number(firstNumber) - Number(secondNumber);
+            break;
+        case '*':
+            firstNumber = Number(firstNumber) * Number(secondNumber);
+            break;
+        case '/':
+            firstNumber = Number(firstNumber) / Number(secondNumber);
+            break;
     }
 }
