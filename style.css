@@ -32,10 +32,15 @@ a {
     text-decoration: none;
     color: goldenrod;
     background-color: rgb(36, 36, 36);
-    border-radius: 16px;
+    border-radius: 16px 16px 0;
     font-weight: bold;
     font-size: 20px;
     padding: 8px;
+}
+
+a:hover {
+    border: 2px solid goldenrod;
+    padding: 6px;
 }
 
 .pageMiddle {
@@ -99,6 +104,10 @@ button {
     font-weight: bold;
     border: 1px solid black;
     background-color: gray;
+}
+
+button:hover {
+    border: 1px solid gold;
 }
 
 #zero {
