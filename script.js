@@ -23,10 +23,7 @@ for (let i of numberButtons) {
     i.addEventListener('click', function (e) {updateNumber(e.target);});
 }
 
-enableOperates(false);
-equalButton.disabled = true;
-dotButton.disabled = true;
-backButton.disabled = true;
+disableButtons(true, true, true, false, true);
 
 function operate (operateButton) {
 
@@ -39,11 +36,7 @@ function operate (operateButton) {
         operator = '';
         lastNumber = [];
         updateTextDisplay();
-        equalButton.disabled = true;
-        dotButton.disabled = true;
-        backButton.disabled = true;
-        enableNumbers(false);
-        enableOperates(false);
+        disableButtons(true, true, true, true, true);
         return;
     }
 
@@ -67,11 +60,9 @@ function operate (operateButton) {
     secondNumber = '';
     operator = operateButton.textContent;
     updateTextDisplay();
-    enableNumbers(true);
-    enableOperates(false);
     lastNumber = [];
     notInteger = false;
-    dotButton.disabled = true;
+    disableButtons(true, true, true, false, true);
 }
 
 function updateTextDisplay () {
@@ -81,6 +72,7 @@ function updateTextDisplay () {
 function updateNumber (numberButton) {
 
     lastNumber.push(numberButton.textContent);
+    let enableEqual = true;
 
     if (numberButton.textContent === '.') {
         notInteger = true;
@@ -95,13 +87,11 @@ function updateNumber (numberButton) {
     }
 
     if (secondNumber !== '') {
-        equalButton.disable = true;
+        enableEqual = false;
     }
 
-    dotButton.disabled = notInteger;
-
-    enableOperates(true)
     updateTextDisplay();
+    disableButtons(notInteger, enableEqual, false, false, false);
 }
 
 function clearAll () {
@@ -109,11 +99,7 @@ function clearAll () {
     secondNumber = '';
     operator = '';
     lastNumber = [];
-    enableOperates(false);
-    enableNumbers(true);
-    equalButton.disabled = true;
-    dotButton.disabled = true;
-    backButton.disabled = true;
+    disableButtons(true, true, true, false, true);
     notInteger = false;
     updateTextDisplay();
 }
@@ -125,12 +111,8 @@ function endOperation () {
         secondNumber = '';
         operator = '';
         updateTextDisplay();
-        equalButton.disabled = true;
-        dotButton.disabled = true;
-        backButton.disabled = true;
+        disableButtons(true, true, true, true, true);
         lastNumber = [];
-        enableNumbers(false);
-        enableOperates(false);
         return;
     }
 
@@ -152,44 +134,13 @@ function endOperation () {
     operator = '';
     lastNumber = [];
     roundNumber();
-    enableOperates(true);
-    enableNumbers(false);
     updateTextDisplay();
     notInteger = false;
-    dotButton.disabled = true;
-    backButton.disabled = true;
+    disableButtons (true, true, true, true, false);
 }
 
 function roundNumber () {
     firstNumber = +firstNumber.toFixed(5);
-}
-
-function enableOperates (boolean) {
-    if (boolean) {
-        for (let i of operateButtons) {
-            i.disabled = false;
-        }
-        if (secondNumber === '') {
-            equalButton.disabled = true;
-        } else {equalButton.disabled = false;}
-    } else {
-        for (let i of operateButtons) {
-            i.disabled = true;
-        }
-    }
-    
-}
-
-function enableNumbers (boolean) {
-    if (boolean) {
-        for (let i of numberButtons) {
-            i.disabled = false;
-        }
-    } else {
-        for (let i of numberButtons) {
-            i.disabled = true;
-        }
-    }
 }
 
 function backSpace () {
@@ -210,9 +161,18 @@ function backSpace () {
     updateTextDisplay();
 
     if (lastNumber.length === 0) {
-        backButton.disabled = true;
-        dotButton.disabled = true;
-        equalButton.disabled = true;
-        enableOperates(false);
+        disableButtons(true, true, true, false, true);
+    }
+}
+
+function disableButtons (boolDot, boolEqual, boolBack, boolNumbers, boolOperates) {
+    dotButton.disabled = boolDot;
+    equalButton.disabled = boolEqual;
+    backButton.disabled = boolBack;
+    for (let i of numberButtons) {
+        i.disabled = boolNumbers;
+    }
+    for (let i of operateButtons) {
+        i.disabled = boolOperates;
     }
 }
