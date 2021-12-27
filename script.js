@@ -33,6 +33,10 @@ function operate (operateButton) {
         secondNumber = '';
         operator = '';
         updateTextDisplay();
+        equalButton.disabled = true;
+        dotButton.disabled = true;
+        enableNumbers(false);
+        enableOperates(false);
         return;
     }
 
@@ -101,6 +105,18 @@ function clearAll () {
 }
 
 function endOperation () {
+
+    if (secondNumber === '0') {
+        firstNumber = 'Error';
+        secondNumber = '';
+        operator = '';
+        updateTextDisplay();
+        equalButton.disabled = true;
+        dotButton.disabled = true;
+        enableNumbers(false);
+        enableOperates(false);
+        return;
+    }
 
     switch (operator) {
         case '+':
