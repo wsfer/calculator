@@ -145,6 +145,10 @@ function roundNumber () {
 
 function backSpace () {
 
+    if (lastNumber[lastNumber.length-1] === '.') {
+        dotButton.disabled = false;
+    }
+
     if (secondNumber === '') {
         lastNumber.pop();
         firstNumber = '';
