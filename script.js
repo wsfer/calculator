@@ -2,16 +2,19 @@ let firstNumber = '';
 let secondNumber = '';
 let operator = '';
 let notInteger = false;
+let lastNumber = [];
 
 const dotButton = document.querySelector('.dot');
 const numberButtons = document.querySelectorAll('.number');
 const clearButton = document.querySelector('#clear');
 const equalButton = document.querySelector('#equal');
 const operateButtons = document.querySelectorAll('.operator');
+const backButton = document.querySelector('#back');
 
 equalButton.addEventListener('click', endOperation);
 clearButton.addEventListener('click', clearAll);
 dotButton.addEventListener('click', function (e) {updateNumber(e.target);});
+backButton.addEventListener('click', backSpace);
 
 for (let i of operateButtons) {
     i.addEventListener('click', function (e) {operate(e.target);});
@@ -23,18 +26,22 @@ for (let i of numberButtons) {
 enableOperates(false);
 equalButton.disabled = true;
 dotButton.disabled = true;
+backButton.disabled = true;
 
 function operate (operateButton) {
 
     equalButton.disabled = true;
+    backButton.disabled = true;
 
     if (secondNumber === '0') {
         firstNumber = 'Error';
         secondNumber = '';
         operator = '';
+        lastNumber = [];
         updateTextDisplay();
         equalButton.disabled = true;
         dotButton.disabled = true;
+        backButton.disabled = true;
         enableNumbers(false);
         enableOperates(false);
         return;
@@ -62,6 +69,7 @@ function operate (operateButton) {
     updateTextDisplay();
     enableNumbers(true);
     enableOperates(false);
+    lastNumber = [];
     notInteger = false;
     dotButton.disabled = true;
 }
@@ -72,14 +80,18 @@ function updateTextDisplay () {
 
 function updateNumber (numberButton) {
 
+    lastNumber.push(numberButton.textContent);
+
     if (numberButton.textContent === '.') {
         notInteger = true;
     }
 
     if (operator === '') {
         firstNumber += numberButton.textContent;
+        backButton.disabled = false;
     } else {
         secondNumber += numberButton.textContent;
+        backButton.disabled = false;
     }
 
     if (secondNumber !== '') {
@@ -96,10 +108,12 @@ function clearAll () {
     firstNumber = '';
     secondNumber = '';
     operator = '';
+    lastNumber = [];
     enableOperates(false);
     enableNumbers(true);
     equalButton.disabled = true;
     dotButton.disabled = true;
+    backButton.disabled = true;
     notInteger = false;
     updateTextDisplay();
 }
@@ -113,6 +127,8 @@ function endOperation () {
         updateTextDisplay();
         equalButton.disabled = true;
         dotButton.disabled = true;
+        backButton.disabled = false;
+        lastNumber = [];
         enableNumbers(false);
         enableOperates(false);
         return;
@@ -134,6 +150,7 @@ function endOperation () {
     }
     secondNumber = '';
     operator = '';
+    lastNumber = [];
     roundNumber();
     enableOperates(true);
     enableNumbers(false);
@@ -172,4 +189,21 @@ function enableNumbers (boolean) {
             i.disabled = true;
         }
     }
+}
+
+function backSpace () {
+    if (secondNumber === '') {
+        lastNumber.pop();
+        firstNumber = '';
+        for (let i of lastNumber) {
+            firstNumber += i;
+        }
+    } else {
+        lastNumber.pop();
+        secondNumber = '';
+        for (let i of lastNumber) {
+            secondNumber += i;
+        }
+    }
+    updateTextDisplay();
 }
