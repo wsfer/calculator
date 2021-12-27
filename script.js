@@ -127,7 +127,7 @@ function endOperation () {
         updateTextDisplay();
         equalButton.disabled = true;
         dotButton.disabled = true;
-        backButton.disabled = false;
+        backButton.disabled = true;
         lastNumber = [];
         enableNumbers(false);
         enableOperates(false);
@@ -157,6 +157,7 @@ function endOperation () {
     updateTextDisplay();
     notInteger = false;
     dotButton.disabled = true;
+    backButton.disabled = true;
 }
 
 function roundNumber () {
@@ -192,6 +193,7 @@ function enableNumbers (boolean) {
 }
 
 function backSpace () {
+
     if (secondNumber === '') {
         lastNumber.pop();
         firstNumber = '';
@@ -206,4 +208,11 @@ function backSpace () {
         }
     }
     updateTextDisplay();
+
+    if (lastNumber.length === 0) {
+        backButton.disabled = true;
+        dotButton.disabled = true;
+        equalButton.disabled = true;
+        enableOperates(false);
+    }
 }
