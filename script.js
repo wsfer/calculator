@@ -10,25 +10,32 @@ const clearButton = document.querySelector('#clear');
 const equalButton = document.querySelector('#equal');
 const operateButtons = document.querySelectorAll('.operator');
 const backButton = document.querySelector('#back');
+const minusButton = document.querySelector('#minus');
 
 equalButton.addEventListener('click', endOperation);
 clearButton.addEventListener('click', clearAll);
 dotButton.addEventListener('click', function (e) {updateNumber(e.target);});
 backButton.addEventListener('click', backSpace);
+minusButton.addEventListener('click', startNegative);
 
-for (let i of operateButtons) {
-    i.addEventListener('click', function (e) {operate(e.target);});
-}
 for (let i of numberButtons) {
     i.addEventListener('click', function (e) {updateNumber(e.target);});
 }
 
 disableButtons(true, true, true, false, true);
+minusButton.disabled = false;
+
+function startNegative () {
+    firstNumber += '-';
+    minusButton.removeEventListener('click', startNegative);
+    minusButton.disabled = true;
+    operator = '';
+    updateTextDisplay();
+}
 
 function operate (operateButton) {
 
-    equalButton.disabled = true;
-    backButton.disabled = true;
+    disableButtons(true, true, true, false, true);
 
     if (secondNumber === '0') {
         firstNumber = 'Error';
@@ -72,7 +79,7 @@ function updateTextDisplay () {
 function updateNumber (numberButton) {
 
     lastNumber.push(numberButton.textContent);
-    let enableEqual = true;
+    let disableEqual = true;
 
     if (numberButton.textContent === '.') {
         notInteger = true;
@@ -80,18 +87,20 @@ function updateNumber (numberButton) {
 
     if (operator === '') {
         firstNumber += numberButton.textContent;
-        backButton.disabled = false;
+        minusButton.removeEventListener('click', startNegative);
+        for (let i of operateButtons) {
+            i.addEventListener('click', (e) => operate(e.target));
+        }
     } else {
         secondNumber += numberButton.textContent;
-        backButton.disabled = false;
     }
 
     if (secondNumber !== '') {
-        enableEqual = false;
+        disableEqual = false;
     }
 
     updateTextDisplay();
-    disableButtons(notInteger, enableEqual, false, false, false);
+    disableButtons(notInteger, disableEqual, false, false, false);
 }
 
 function clearAll () {
@@ -100,6 +109,8 @@ function clearAll () {
     operator = '';
     lastNumber = [];
     disableButtons(true, true, true, false, true);
+    minusButton.addEventListener('click', startNegative);
+    minusButton.disabled = false;
     notInteger = false;
     updateTextDisplay();
 }
