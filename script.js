@@ -27,9 +27,11 @@ minusButton.disabled = false;
 
 function startNegative () {
     firstNumber += '-';
+    lastNumber.push('-');
     minusButton.removeEventListener('click', startNegative);
     minusButton.disabled = true;
     operator = '';
+    backButton.disabled = false;
     updateTextDisplay();
 }
 
@@ -42,22 +44,21 @@ function updateOperation (operateButton) {
         secondNumber = '';
         operator = '';
         lastNumber = [];
-        updateTextDisplay();
         disableButtons(true, true, true, true, true);
+        updateTextDisplay();
         return;
     }
 
     if (secondNumber !== '') {
         operate();
-        roundNumber();
     }
 
     secondNumber = '';
     operator = operateButton.textContent;
-    updateTextDisplay();
     lastNumber = [];
     notInteger = false;
     disableButtons(true, true, true, false, true);
+    updateTextDisplay();
 }
 
 function updateTextDisplay () {
@@ -109,9 +110,9 @@ function endOperation () {
         firstNumber = 'Error';
         secondNumber = '';
         operator = '';
-        updateTextDisplay();
-        disableButtons(true, true, true, true, true);
         lastNumber = [];
+        disableButtons(true, true, true, true, true);
+        updateTextDisplay();
         return;
     }
 
@@ -120,39 +121,30 @@ function endOperation () {
     secondNumber = '';
     operator = '';
     lastNumber = [];
-    roundNumber();
-    updateTextDisplay();
     notInteger = false;
     disableButtons (true, true, true, true, false);
-}
-
-function roundNumber () {
-    firstNumber = +firstNumber.toFixed(5);
+    updateTextDisplay();
 }
 
 function backSpace () {
-
     if (lastNumber[lastNumber.length-1] === '.') {
         dotButton.disabled = false;
         notInteger = false;
     }
 
-    if (secondNumber === '') {
-        lastNumber.pop();
-        firstNumber = '';
-        for (let i of lastNumber) {
-            firstNumber += i;
-        }
-    } else {
-        lastNumber.pop();
-        secondNumber = '';
-        for (let i of lastNumber) {
-            secondNumber += i;
-        }
-    }
+    let targetNumber = '';
+    lastNumber.pop();
+    for (let i of lastNumber) {targetNumber += i;}
+
+    (secondNumber) ? secondNumber = targetNumber : firstNumber = targetNumber;
+
     updateTextDisplay();
 
-    if (lastNumber.length === 0) {
+    if (lastNumber.length === 0 && targetNumber === firstNumber) {
+        disableButtons(true, true, true, false, true);
+        minusButton.addEventListener('click', startNegative);
+        minusButton.disabled = false;
+    } else if (lastNumber.length === 0) {
         disableButtons(true, true, true, false, true);
     }
 }
@@ -184,4 +176,5 @@ function operate () {
             firstNumber = Number(firstNumber) / Number(secondNumber);
             break;
     }
+    firstNumber = +firstNumber.toFixed(5);
 }
