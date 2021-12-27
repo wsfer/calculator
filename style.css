@@ -45,6 +45,7 @@ a {
     padding: 60px;
     border-radius: 30px;
     margin: 0 180px;
+    border: 3px solid black;
 }
 
 .calculator {
@@ -53,13 +54,14 @@ a {
     justify-content: center;
     flex-direction: column;
     background-color: rgb(36, 36, 36);
-    border: 2px solid black;
+    border: 3px solid black;
     padding: 16px;
     border-radius: 16px;
 }
 
 .display {
     background-color: white;
+    border: 2px solid black;
     height: 100px;
     width: 400px;
     font-size: 40px;
@@ -112,7 +114,7 @@ button {
 }
 
 #clear, #back {
-    background-color: red;
+    background-color: brown;
 }
 
 .dot {
