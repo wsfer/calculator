@@ -181,11 +181,15 @@ function operate () {
 
 //keyboard support.
 document.addEventListener('keyup', (e) => pressKey(e.key));
+const zeroButton = document.querySelector('#zero');
+const plusButton = document.querySelector('#plus');
 
 function pressKey (keyPressed) {
     switch (keyPressed) {
         case 'Backspace':
-            backSpace();
+            if (backButton.disabled === false) {
+                backSpace();
+            }
             break;
         case 'Escape':
             clearAll();
@@ -194,13 +198,28 @@ function pressKey (keyPressed) {
         case '4': case '5': case '6':
         case '7': case '8': case '9':
         case '0': case '.':
-            updateNumberForKeyboard(keyPressed);
+            if (zeroButton.disabled === false) {
+                updateNumberForKeyboard(`${keyPressed}`);
+            }
             break;
-        case '+': case '/': case '*': case '-':
-            updateOperationForKeyboard(keyPressed);
+        case '+': case '/': case '*':
+            if (plusButton.disabled === false) {
+                updateOperationForKeyboard(`${keyPressed}`);
+                break;
+            }
+            break;
+        case '-':
+            if (firstNumber === '') {
+                startNegative();
+                break;
+            } else if (minusButton.disabled === false) {
+                updateOperationForKeyboard(`${keyPressed}`);
+            }
             break;
         case '=':
-            endOperation();
+            if (equalButton.disabled === false) {
+                endOperation();
+            }
             break;
     }
 }
