@@ -186,7 +186,7 @@ const plusButton = document.querySelector('#plus');
 
 function pressKey (keyPressed) {
     switch (keyPressed) {
-        case 'Backspace':
+        case 'Backspace': case 'Delete':
             if (backButton.disabled === false) {
                 backSpace();
             }
@@ -216,7 +216,7 @@ function pressKey (keyPressed) {
                 updateOperationForKeyboard(`${keyPressed}`);
             }
             break;
-        case '=':
+        case '=': case 'Enter':
             if (equalButton.disabled === false) {
                 endOperation();
             }
